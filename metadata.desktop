@@ -1,12 +1,12 @@
 [SddmGreeterTheme]
-Name=Pixie SDDM
-Description=A clean, modern, and minimal SDDM theme inspired by Google Pixel UI and Material Design 3.
-Author=xCaptaiN09
-Copyright=(c) 2026 xCaptaiN09
+Name=Hyprism Pixie
+Description=Pixie SDDM adapted for Hyprism dynamic colors, wallpaper, sessions, and virtual keyboard.
+Author=Hyprism contributors; based on Pixie SDDM by xCaptaiN09
+Copyright=Pixie SDDM contributors
 License=MIT
 Type=sddm-theme
-Version=3.0
+Version=1.0
 MainScript=Main.qml
-Screenshot=screenshot.png
+Screenshot=login_screen.png
 QtVersion=6
 X-SDDM-Theme-InterfaceVersion=2

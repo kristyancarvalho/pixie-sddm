@@ -3,6 +3,8 @@
  * Author: xCaptaiN09
  */
 import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 Row {
     id: powerBarRoot
@@ -10,10 +12,11 @@ Row {
     height: 30
 
     property color textColor: "white"
+    property color accentColor: "white"
+    property color surfaceColor: "black"
 
     FontLoader { id: iconFont; source: "../assets/fonts/MaterialDesignIcons.ttf" }
 
-    // Battery (With forced live updates)
     Row {
         id: batteryRow
         spacing: 5
@@ -50,7 +53,6 @@ Row {
         }
     }
 
-    // Keyboard Layout
     Text {
         text: (typeof keyboard !== "undefined" && keyboard.layouts[keyboard.currentLayout]) ? keyboard.layouts[keyboard.currentLayout].shortName : "US"
         color: textColor
@@ -67,42 +69,39 @@ Row {
         }
     }
 
-    // Suspend
-    Text {
+    Button {
+        visible: sddm.canSuspend
+        width: 30
+        height: 30
+        padding: 0
+        focusPolicy: Qt.NoFocus
         text: "󰤄"
-        color: textColor
-        font.pixelSize: 20
-        font.family: iconFont.name
-        anchors.verticalCenter: parent.verticalCenter
-        MouseArea {
-            anchors.fill: parent
-            onClicked: sddm.suspend()
-        }
+        onClicked: sddm.suspend()
+        contentItem: Text { text: parent.text; color: parent.hovered ? accentColor : textColor; font.pixelSize: 20; font.family: iconFont.name; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
+        background: Rectangle { radius: 10; color: parent.hovered ? Qt.rgba(powerBarRoot.surfaceColor.r, powerBarRoot.surfaceColor.g, powerBarRoot.surfaceColor.b, .7) : "transparent" }
     }
 
-    // Restart
-    Text {
+    Button {
+        visible: sddm.canReboot
+        width: 30
+        height: 30
+        padding: 0
+        focusPolicy: Qt.NoFocus
         text: "󰑐"
-        color: textColor
-        font.pixelSize: 20
-        font.family: iconFont.name
-        anchors.verticalCenter: parent.verticalCenter
-        MouseArea {
-            anchors.fill: parent
-            onClicked: sddm.reboot()
-        }
+        onClicked: sddm.reboot()
+        contentItem: Text { text: parent.text; color: parent.hovered ? accentColor : textColor; font.pixelSize: 20; font.family: iconFont.name; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
+        background: Rectangle { radius: 10; color: parent.hovered ? Qt.rgba(powerBarRoot.surfaceColor.r, powerBarRoot.surfaceColor.g, powerBarRoot.surfaceColor.b, .7) : "transparent" }
     }
 
-    // Shutdown
-    Text {
+    Button {
+        visible: sddm.canPowerOff
+        width: 30
+        height: 30
+        padding: 0
+        focusPolicy: Qt.NoFocus
         text: "󰐥"
-        color: textColor
-        font.pixelSize: 20
-        font.family: iconFont.name
-        anchors.verticalCenter: parent.verticalCenter
-        MouseArea {
-            anchors.fill: parent
-            onClicked: sddm.powerOff()
-        }
+        onClicked: sddm.powerOff()
+        contentItem: Text { text: parent.text; color: parent.hovered ? accentColor : textColor; font.pixelSize: 20; font.family: iconFont.name; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
+        background: Rectangle { radius: 10; color: parent.hovered ? Qt.rgba(powerBarRoot.surfaceColor.r, powerBarRoot.surfaceColor.g, powerBarRoot.surfaceColor.b, .7) : "transparent" }
     }
 }

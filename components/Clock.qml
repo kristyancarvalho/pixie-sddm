@@ -8,8 +8,8 @@ Item {
     id: clock
 
     property string backgroundSource: ""
-    property color defaultHoursColor: "#AED68A"
-    property color defaultMinutesColor: "#D4E4BC"
+    property color defaultHoursColor: config.accentColor
+    property color defaultMinutesColor: config.textColor
     property string fontFamily: "FlexRounded" // Overridden by Main.qml
     property color baseAccent: config.accentColor
     property color smartHoursColor: defaultHoursColor
@@ -34,24 +34,8 @@ Item {
     }
 
     function updateColors() {
-        var base = clock.baseAccent;
-
-        if (base.hsvSaturation < 0.15) {
-            clock.smartHoursColor = Qt.lighter(base, 1.3);
-            clock.smartMinutesColor = Qt.darker(base, 1.4);
-            return;
-        }
-
-        if (base.hsvValue < 0.5) {
-            clock.smartHoursColor = Qt.hsva(base.hsvHue, 0.7, 0.9, 1.0);
-            clock.smartMinutesColor = Qt.hsva(base.hsvHue, 0.45, 0.85, 1.0);
-        } else if (base.hsvValue > 0.8 && base.hsvSaturation < 0.2) {
-            clock.smartHoursColor = Qt.hsva(base.hsvHue, 0.8, 0.7, 1.0);
-            clock.smartMinutesColor = Qt.hsva(base.hsvHue, 0.5, 0.75, 1.0);
-        } else {
-            clock.smartHoursColor = Qt.hsva(base.hsvHue, Math.min(1.0, base.hsvSaturation * 1.3), 0.95, 1.0);
-            clock.smartMinutesColor = Qt.hsva(base.hsvHue, Math.min(1.0, base.hsvSaturation * 0.75), 0.92, 1.0);
-        }
+        clock.smartHoursColor = clock.defaultHoursColor;
+        clock.smartMinutesColor = clock.defaultMinutesColor;
     }
 
     onBaseAccentChanged: updateColors()
