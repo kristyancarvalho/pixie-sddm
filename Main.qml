@@ -31,6 +31,12 @@ FocusScope {
     readonly property color errorColor: config.errorColor || "#fb4934"
     readonly property string wallpaperSource: config.background || "file:///var/lib/hyprism/sddm/current-wallpaper.jpg"
     readonly property real contentWidth: Math.min(430, width - 36)
+    readonly property var availableFonts: Qt.fontFamilies()
+    readonly property string activeFontFamily: config.fontFamily && availableFonts.indexOf(config.fontFamily) >= 0 ? config.fontFamily : fontRegular.name
+
+    FontLoader { id: fontRegular; source: "assets/fonts/FlexRounded-R.ttf" }
+    FontLoader { id: fontMedium; source: "assets/fonts/FlexRounded-M.ttf" }
+    FontLoader { id: fontBold; source: "assets/fonts/FlexRounded-B.ttf" }
 
     function userValue(role, fallback) {
         if (!userModel || userCount < 1 || userIndex < 0 || userIndex >= userCount) return fallback
@@ -188,6 +194,7 @@ FocusScope {
         anchors.centerIn: parent
         width: Math.min(parent.width - 40, 520)
         height: 310
+        fontFamily: root.activeFontFamily
         baseAccent: root.accent
         defaultHoursColor: root.accent
         defaultMinutesColor: root.textColor
